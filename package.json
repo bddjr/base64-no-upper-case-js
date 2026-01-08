@@ -1,7 +1,7 @@
 {
   "name": "base64-no-upper-case",
   "version": "1.0.0",
-  "description": "",
+  "description": "Base64, but no UPPER CASE.",
   "main": "./dist/main.js",
   "browser": "./dist/browser.js",
   "type": "module",
@@ -21,8 +21,10 @@
     "base64",
     "scratch",
     "upper",
+    "lower",
     "case",
     "uppercase",
+    "lowercase",
     "encode",
     "decode"
   ],
