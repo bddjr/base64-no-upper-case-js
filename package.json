@@ -1,0 +1,42 @@
+{
+  "name": "base64-no-upper-case",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/main.js",
+  "browser": "./dist/browser.js",
+  "type": "module",
+  "scripts": {
+    "build": "rimraf dist && tsc && node scripts/build-for-browser.js && es-check es2015 --module dist/**/*.js --not dist/browser.* && es-check es2015 dist/browser.*",
+    "test": "npm run build && node scripts/test.js",
+    "prepublishOnly": "npm test"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bddjr/base64-no-upper-case-js.git"
+  },
+  "keywords": [
+    "base64",
+    "scratch",
+    "upper",
+    "case",
+    "uppercase",
+    "encode",
+    "decode"
+  ],
+  "author": "bddjr",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/bddjr/base64-no-upper-case-js/issues"
+  },
+  "homepage": "https://github.com/bddjr/base64-no-upper-case-js#readme",
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "es-check": "^9.5.3",
+    "rimraf": "^6.1.2",
+    "terser": "^5.44.1",
+    "typescript": "^5.9.3"
+  }
+}
