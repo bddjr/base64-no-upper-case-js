@@ -1,6 +1,6 @@
 {
   "name": "base64-no-upper-case",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Base64, but no UPPER CASE.",
   "main": "./dist/main.js",
   "browser": "./dist/browser.js",

@@ -14,12 +14,12 @@ type Uint8ArrayLike = ArrayLike<number>
                 , out = Array<string>(Math.ceil(il / 3) * 4)
                 , ii = 0
                 , oi = 0
-            while (ii < input.length) {
+            while (ii < il) {
                 // 00000000 11111111 22222222
                 // __000000 __001111 __111122 __222222
-                out[oi++] = charMap[input[ii] >> 2]
-                out[oi++] = charMap[input[ii++] << 4 & 63 | input[ii] >> 4]
-                out[oi++] = ii >= il ? '=' : charMap[input[ii++] << 2 & 63 | input[ii] >> 6]
+                out[oi++] = charMap[input[ii] >> 2 & 63]
+                out[oi++] = charMap[(input[ii++] << 4 | input[ii] >> 4) & 63]
+                out[oi++] = ii >= il ? '=' : charMap[(input[ii++] << 2 | input[ii] >> 6) & 63]
                 out[oi++] = ii >= il ? '=' : charMap[input[ii++] & 63]
             }
             return out.join('')
@@ -36,7 +36,7 @@ type Uint8ArrayLike = ArrayLike<number>
                 , char: string
                 , cache: number
                 , next = () => {
-                    if ((char = input[ii++]) == '=')
+                    if (ii >= il || (char = input[ii++]) == '=')
                         return cache = 0
                     if ((cache = charMap.indexOf(char)) < 0)
                         throw Error("InvalidCharacterError: '" + char + "' at " + (ii - 1))

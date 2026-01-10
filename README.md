@@ -1,8 +1,16 @@
 Base64, but no UPPER CASE.
 
+It is useful in case-insensitive scenarios, such as Scratch.
+
 ```
 !#$%&()*,-.:;<>?@[]^_`{|}~abcdefghijklmnopqrstuvwxyz0123456789+/
 ```
+
+For Scratch:  
+<https://scratch.mit.edu/projects/1263900629/>  
+
+For Python:  
+<https://pypi.org/project/base64-no-upper-case/>  
 
 ## Setup
 
