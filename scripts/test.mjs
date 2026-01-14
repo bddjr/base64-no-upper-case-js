@@ -1,4 +1,5 @@
-import Base64NoUpperCase from '../dist/main.js'
+import Base64NoUpperCase from '../dist/module.mjs'
+import Base64NoUpperCase_require from './test-require.cjs'
 import { exit } from 'process'
 import fs from 'fs'
 
@@ -48,19 +49,20 @@ function test(Base64NoUpperCase) {
     test2(crypto.getRandomValues(new Uint8Array(16)))
 }
 
-// test npm
+// test module
 test(Base64NoUpperCase);
 
+// test main
+test(Base64NoUpperCase_require);
+
 // test browser
-((self) => {
-    // @ts-ignore
-    delete self.Base64NoUpperCase
-
+(function () {
     eval(fs.readFileSync('dist/browser.min.js').toString())
-
-    // @ts-ignore
-    test(self.Base64NoUpperCase)
-})(global);
+    //@ts-ignore
+    if (Object.keys(this).length != 1) throw this;
+    //@ts-ignore
+    test(this.Base64NoUpperCase)
+}).call({});
 
 console.log('------------------')
 console.log('allSuccess:', allSuccess)

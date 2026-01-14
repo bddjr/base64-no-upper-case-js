@@ -1,14 +1,15 @@
 {
   "name": "base64-no-upper-case",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Base64, but no UPPER CASE.",
+  "type": "commonjs",
   "main": "./dist/main.js",
-  "browser": "./dist/browser.js",
-  "type": "module",
+  "browser": "./dist/browser.min.js",
+  "module": "./dist/module.js",
   "scripts": {
-    "build": "rimraf dist && tsc && node scripts/build-for-browser.js && es-check es2015 --module dist/**/*.js --not dist/browser.* && es-check es2015 dist/browser.*",
-    "test": "npm run build && node scripts/test.js",
-    "prepublishOnly": "npm test"
+    "build": "rimraf dist && tsc && node scripts/minify.mjs && es-check es6 --checkFeatures dist/**/*.js && es-check es6 --module --checkFeatures dist/**/*.mjs",
+    "test": "node --run build && node scripts/test.mjs",
+    "prepublishOnly": "node --run test"
   },
   "files": [
     "dist"
