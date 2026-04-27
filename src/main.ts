@@ -1,7 +1,7 @@
 export const charMap = "!#$%&()*,-.:;<>?@[]^_`{|}~abcdefghijklmnopqrstuvwxyz0123456789+/"
 
 const charMapBytes = new TextEncoder().encode(charMap)
-    , decodeMap = new Map<string, number>(Array.from(charMap, (v, i) => [v, i]))
+    , decodeMap = new Map<string, number>(Array.from(charMap, (v, i) => [v, i])).set('=', 0).set(''[0], 0)
     , translateMap_encode = new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [String.fromCharCode(i + 65), v]))
     , translateMap_decode = new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [v, String.fromCharCode(i + 65)]))
 
@@ -35,18 +35,15 @@ export function decode(input: string): Uint8Array {
     }
     var il = input.length
         , out = new Uint8Array((il / 4 * 3) - (
-            ((input[il - 1] == '=') as unknown as number) &&
-            (1 + ((input[il - 2] == '=') as unknown as number))
+            input[il - 1] === '=' &&
+            1 + ((input[il - 2] === '=') as any)
         ))
         , ii = 0
         , oi = 0
-        , char: string
         , cache: number
         , next = () => {
-            if (ii >= il || (char = input[ii++]) == '=')
-                return cache = 0
-            if ((cache = decodeMap.get(char)) == null)
-                throw Error(`InvalidCharacterError: '"${char}"' at ${ii - 1}`)
+            if ((cache = decodeMap.get(input[ii++])) === void 0)
+                throw Error(`InvalidCharacterError: '"${input[--ii]}"' at ${ii}`)
             return cache
         }
     while (ii < il) {
