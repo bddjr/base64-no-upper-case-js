@@ -1,6 +1,7 @@
 export const charMap = "!#$%&()*,-.:;<>?@[]^_`{|}~abcdefghijklmnopqrstuvwxyz0123456789+/"
 
-const decodeMap = new Map<string, number>(Array.from(charMap, (v, i) => [v, i]))
+const charMapBytes = new TextEncoder().encode(charMap)
+    , decodeMap = new Map<string, number>(Array.from(charMap, (v, i) => [v, i]))
     , translateMap_encode = new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [String.fromCharCode(i + 65), v]))
     , translateMap_decode = new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [v, String.fromCharCode(i + 65)]))
 
@@ -11,18 +12,18 @@ export function encode(input: Uint8Array | string): string {
         return ((input as any).toBase64() as string).replace(/[A-Z]/g, m => translateMap_encode.get(m))
     }
     var il = input.length
-        , out = Array<string>(Math.ceil(il / 3) * 4)
+        , out = new Uint8Array(Math.ceil(il / 3) * 4)
         , ii = 0
         , oi = 0
     while (ii < il) {
         // 00000000 11111111 22222222
         // __000000 __001111 __111122 __222222
-        out[oi++] = charMap[input[ii] >> 2 & 63]
-        out[oi++] = charMap[(input[ii++] << 4 | input[ii] >> 4) & 63]
-        out[oi++] = ii >= il ? '=' : charMap[(input[ii++] << 2 | input[ii] >> 6) & 63]
-        out[oi++] = ii >= il ? '=' : charMap[input[ii++] & 63]
+        out[oi++] = charMapBytes[input[ii] >> 2 & 63]
+        out[oi++] = charMapBytes[(input[ii++] << 4 | input[ii] >> 4) & 63]
+        out[oi++] = ii >= il ? 61 : charMapBytes[(input[ii++] << 2 | input[ii] >> 6) & 63]
+        out[oi++] = ii >= il ? 61 : charMapBytes[input[ii++] & 63]
     }
-    return out.join('')
+    return new TextDecoder().decode(out)
 }
 
 export function decode(input: string): Uint8Array {
