@@ -34,7 +34,7 @@ export function decode(input: string): Uint8Array {
         ) as Uint8Array
     }
     var il = input.length
-        , out = new Uint8Array(Math.floor(il / 4 * 3) - (
+        , out = new Uint8Array((il / 4 * 3) - (
             ((input[il - 1] == '=') as unknown as number) &&
             (1 + ((input[il - 2] == '=') as unknown as number))
         ))
