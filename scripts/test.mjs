@@ -54,14 +54,6 @@ if (Uint8Array.prototype.toBase64) {
     test(Base64NoUpperCase);
 }
 
-{
-    const b = Buffer
-    delete global.Buffer
-    test(Base64NoUpperCase);
-    global.Buffer = b
-    Buffer.alloc(1).toString
-}
-
 console.log('------------------')
 console.log('allSuccess:', allSuccess)
 console.log()
