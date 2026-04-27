@@ -26,12 +26,12 @@ export function encode(input: Uint8Array | string): string {
     return new TextDecoder().decode(out)
 }
 
-export function decode(input: string): Uint8Array {
+export function decode(input: string): Uint8Array<ArrayBuffer> {
     input += ''
     if (typeof (Uint8Array as any).fromBase64 == 'function') {
         return (Uint8Array as any).fromBase64(
             input.replace(/[!#$%&()*,\-\.:;<>?@[\]^_`{|}~]/g, m => translateMap_decode.get(m))
-        ) as Uint8Array
+        )
     }
     var il = input.length
         , out = new Uint8Array((il / 4 * 3) - (
