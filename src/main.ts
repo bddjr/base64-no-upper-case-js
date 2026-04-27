@@ -1,8 +1,15 @@
 export const charMap = "!#$%&()*,-.:;<>?@[]^_`{|}~abcdefghijklmnopqrstuvwxyz0123456789+/"
 
+const decodeMap = new Map<string, number>(Array.from(charMap, (v, i) => [v, i]))
+    , translateMap_encode = new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [String.fromCharCode(i + 65), v]))
+    , translateMap_decode = new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [v, String.fromCharCode(i + 65)]))
+
 export function encode(input: Uint8Array | string): string {
     if (typeof input == 'string')
         input = new TextEncoder().encode(input)
+    if (typeof (input as any).toBase64 == 'function') {
+        return ((input as any).toBase64() as string).replace(/[A-Z]/g, m => translateMap_encode.get(m))
+    }
     var il = input.length
         , out = Array<string>(Math.ceil(il / 3) * 4)
         , ii = 0
@@ -19,6 +26,12 @@ export function encode(input: Uint8Array | string): string {
 }
 
 export function decode(input: string): Uint8Array {
+    input += ''
+    if (typeof (Uint8Array as any).fromBase64 == 'function') {
+        return (Uint8Array as any).fromBase64(
+            input.replace(/[!#$%&()*,\-\.:;<>?@[\]^_`{|}~]/g, m => translateMap_decode.get(m))
+        ) as Uint8Array
+    }
     var il = input.length
         , out = new Uint8Array(Math.floor(il / 4 * 3) - (
             ((input[il - 1] == '=') as unknown as number) &&
@@ -31,8 +44,8 @@ export function decode(input: string): Uint8Array {
         , next = () => {
             if (ii >= il || (char = input[ii++]) == '=')
                 return cache = 0
-            if ((cache = charMap.indexOf(char)) < 0)
-                throw Error("InvalidCharacterError: '" + char + "' at " + (ii - 1))
+            if ((cache = decodeMap.get(char)) == null)
+                throw Error(`InvalidCharacterError: '"${char}"' at ${ii - 1}`)
             return cache
         }
     while (ii < il) {

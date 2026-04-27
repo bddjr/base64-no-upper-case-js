@@ -1,7 +1,4 @@
-import Base64NoUpperCase from '../dist/module.mjs'
-import Base64NoUpperCase_require from './test-require.cjs'
-import { exit } from 'process'
-import fs from 'fs'
+import Base64NoUpperCase from '../dist/main.js'
 
 let allSuccess = true
 
@@ -49,23 +46,24 @@ function test(Base64NoUpperCase) {
     test2(crypto.getRandomValues(new Uint8Array(16)))
 }
 
-// test module
 test(Base64NoUpperCase);
 
-// test main
-test(Base64NoUpperCase_require);
+if (Uint8Array.prototype.toBase64) {
+    delete Uint8Array.prototype.toBase64
+    delete Uint8Array.fromBase64
+    test(Base64NoUpperCase);
+}
 
-// test browser
-(function () {
-    eval(fs.readFileSync('dist/browser.min.js').toString())
-    //@ts-ignore
-    if (Object.keys(this).length != 1) throw this;
-    //@ts-ignore
-    test(this.Base64NoUpperCase)
-}).call({});
+{
+    const b = Buffer
+    delete global.Buffer
+    test(Base64NoUpperCase);
+    global.Buffer = b
+    Buffer.alloc(1).toString
+}
 
 console.log('------------------')
 console.log('allSuccess:', allSuccess)
 console.log()
 
-allSuccess || exit(1)
+allSuccess || process.exit(1)
