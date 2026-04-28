@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
+    "types": ["node"],
     "skipLibCheck": true,
     "rootDir": "src",
     "outDir": "dist",

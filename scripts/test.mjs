@@ -3,7 +3,6 @@ import Base64NoUpperCase from '../dist/main.js'
 let allSuccess = true
 
 /**
- * 
  * @param {typeof Base64NoUpperCase} Base64NoUpperCase 
  */
 function test(Base64NoUpperCase) {
@@ -33,6 +32,7 @@ function test(Base64NoUpperCase) {
         }
         allSuccess &&= isEqual
         console.log('equal:', isEqual)
+        isEqual || process.exit(1)
     }
 
     test2("Hello world!")
@@ -46,13 +46,46 @@ function test(Base64NoUpperCase) {
     test2(crypto.getRandomValues(new Uint8Array(16)))
 }
 
+/**
+ * @param {typeof Base64NoUpperCase} Base64NoUpperCase 
+ */
+function testNoBuffer(Base64NoUpperCase) {
+    console.log(`
+
+test without Buffer
+`)
+
+    const b = Buffer
+    delete global.Buffer
+
+    test(Base64NoUpperCase);
+
+    global.Buffer = b
+}
+
 test(Base64NoUpperCase);
 
 if (Uint8Array.prototype.toBase64) {
+    console.log(`
+
+test without 'Uint8Array.prototype.toBase64' and 'Uint8Array.fromBase64'
+`)
+
+    const { toBase64 } = Uint8Array.prototype
     delete Uint8Array.prototype.toBase64
+    const { fromBase64 } = Uint8Array
     delete Uint8Array.fromBase64
+
     test(Base64NoUpperCase);
+
+    testNoBuffer(Base64NoUpperCase)
+
+    Uint8Array.prototype.toBase64 = toBase64
+    Uint8Array.fromBase64 = fromBase64
+} else {
+    testNoBuffer(Base64NoUpperCase)
 }
+
 
 console.log('------------------')
 console.log('allSuccess:', allSuccess)
