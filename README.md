@@ -21,21 +21,21 @@ npm i base64-no-upper-case
 ```
 
 ```js
-import Base64NoUpperCase from "base64-no-upper-case"
+import base64NoUpperCase from "base64-no-upper-case"
 
 // Encode string
-var enc = Base64NoUpperCase.encode("Hello world!")
+var enc = base64NoUpperCase.encode("Hello world!")
 console.log(enc)
 
 // Decode to string
-var dec = Base64NoUpperCase.decodeToString("])`sb)8gd29yb)@h")
+var dec = base64NoUpperCase.decodeToString("])`sb)8gd29yb)@h")
 console.log(dec)
 
 // Encode Uint8Array
-var enc = Base64NoUpperCase.encode(new Uint8Array(16))
+var enc = base64NoUpperCase.encode(new Uint8Array(16))
 console.log(enc)
 
 // Decode to Uint8Array
-var dec = Base64NoUpperCase.decode("^2rn8;ffl7<z*}{.|m@|{w==")
+var dec = base64NoUpperCase.decode("^2rn8;ffl7<z*}{.|m@|{w==")
 console.log(dec)
 ```

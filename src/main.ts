@@ -93,11 +93,11 @@ export function decodeToString(input: string, textDecoder = new TextDecoder()): 
     return textDecoder.decode(decode(input))
 }
 
-const Base64NoUpperCase = {
+const base64NoUpperCase = {
     charMap,
     encode,
     decode,
     decodeToString
 }
 
-export default Base64NoUpperCase
+export default base64NoUpperCase
