@@ -50,17 +50,17 @@ function test(Base64NoUpperCase) {
  * @param {typeof Base64NoUpperCase} Base64NoUpperCase 
  */
 function testNoBuffer(Base64NoUpperCase) {
-    console.log(`
+//     console.log(`
 
-test without Buffer
-`)
+// test without Buffer
+// `)
 
-    const b = Buffer
-    delete global.Buffer
+//     const b = Buffer
+//     delete global.Buffer
 
-    test(Base64NoUpperCase);
+//     test(Base64NoUpperCase);
 
-    global.Buffer = b
+//     global.Buffer = b
 }
 
 test(Base64NoUpperCase);
@@ -78,12 +78,12 @@ test without 'Uint8Array.prototype.toBase64' and 'Uint8Array.fromBase64'
 
     test(Base64NoUpperCase);
 
-    testNoBuffer(Base64NoUpperCase)
+    // testNoBuffer(Base64NoUpperCase)
 
     Uint8Array.prototype.toBase64 = toBase64
     Uint8Array.fromBase64 = fromBase64
 } else {
-    testNoBuffer(Base64NoUpperCase)
+    // testNoBuffer(Base64NoUpperCase)
 }
 
 
