@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "es2015",
     "types": ["node"],
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "rootDir": "src",
     "outDir": "dist",
     "declaration": true,
-    "strict": false
+    "strict": true
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]
