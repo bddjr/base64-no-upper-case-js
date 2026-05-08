@@ -2,12 +2,14 @@ import { encode as _encode, _base64ToBytes } from "@bddjr/base64"
 
 export const charMap = "!#$%&()*,-.:;<>?@[]^_`{|}~abcdefghijklmnopqrstuvwxyz0123456789+/"
 
+export const _charMap26 = "!#$%&()*,-.:;<>?@[]^_`{|}~"
+
 const __replacement_encode = Map.prototype.get.bind(
-    new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [String.fromCharCode(i + 65), v]))
+    new Map<string, string>(Array.from(_charMap26, (v, i) => [String.fromCharCode(i + 65), v]))
 ) as (match: string) => string
 
 const __replacement_decode = Map.prototype.get.bind(
-    new Map<string, string>(Array.from(charMap.slice(0, 26), (v, i) => [v, String.fromCharCode(i + 65)]))
+    new Map<string, string>(Array.from(_charMap26, (v, i) => [v, String.fromCharCode(i + 65)]))
 ) as (match: string) => string
 
 export function _translate_encode_output(base64: string) {
@@ -32,6 +34,7 @@ export function decodeToString(input: string, textDecoder = new TextDecoder()): 
 
 const base64NoUpperCase = {
     charMap: charMap as typeof charMap,
+    _charMap26: _charMap26 as typeof _charMap26,
     _translate_encode_output,
     _translate_decode_input,
     encode,
