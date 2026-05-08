@@ -1,6 +1,6 @@
 {
   "name": "base64-no-upper-case",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Base64, but no UPPER CASE.",
   "type": "module",
   "main": "./dist/main.js",
@@ -42,6 +42,6 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@bddjr/base64": "^1.0.1"
+    "@bddjr/base64": "^1.0.2"
   }
 }
