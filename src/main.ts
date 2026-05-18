@@ -11,12 +11,12 @@ export const alphabet = "!#$%&()*,-.:;<>?@[]^_`{|}~abcdefghijklmnopqrstuvwxyz012
 /** @deprecated Use 'alphabet' instead */
 export const charMap = alphabet
 
-export const _bytesToBase64 = make_bytesToBase64(alphabet)
-export const encode = make_encode(_bytesToBase64)
+export const _bytesToBase64 = /*@__PURE__*/ make_bytesToBase64(alphabet)
+export const encode = /*@__PURE__*/ make_encode(_bytesToBase64)
 
-export const _base64ToBytes = make_base64ToBytes(alphabet)
-export const decode = make_decode(_base64ToBytes)
-export const decodeToString = make_decodeToString(decode)
+export const _base64ToBytes = /*@__PURE__*/ make_base64ToBytes(alphabet)
+export const decode = /*@__PURE__*/ make_decode(_base64ToBytes)
+export const decodeToString = /*@__PURE__*/ make_decodeToString(decode)
 
 const base64NoUpperCase = {
     alphabet: alphabet as typeof alphabet,
