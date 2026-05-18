@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@bddjr/base64':
-        specifier: ^1.0.2
-        version: 1.0.2
+        specifier: ^1.1.0
+        version: 1.1.0
     devDependencies:
       '@bddjr/rimraf':
         specifier: ^0.1.1
@@ -24,8 +24,8 @@ importers:
 
 packages:
 
-  '@bddjr/base64@1.0.2':
-    resolution: {integrity: sha512-HqaDUI/P2Zgn6rkeH/uEBOSz0QdAhVfdbN2dC+btP1C7D0TvitGvnayZLmHwuu/JmAyqn5VZXrH2iajz+VTBHQ==}
+  '@bddjr/base64@1.1.0':
+    resolution: {integrity: sha512-cd5BNUFxt+G/w0t3liofmf2wr2gJGIIeO/x2h9CJKbHblcmbkeHup/i2ATzMpv9Qebat5+7lN3hQcq+J8gxqgQ==}
 
   '@bddjr/rimraf@0.1.1':
     resolution: {integrity: sha512-a0Hs06K0CQS3vywqdsU8VwKwTeEWB0dFQ0eOcdemFyGuXqok2e+TfSzUWVq9l4lkItdn2reAydwjEuFHvjttSQ==}
@@ -44,7 +44,7 @@ packages:
 
 snapshots:
 
-  '@bddjr/base64@1.0.2': {}
+  '@bddjr/base64@1.1.0': {}
 
   '@bddjr/rimraf@0.1.1': {}
 
